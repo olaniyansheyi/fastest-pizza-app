@@ -1,8 +1,8 @@
 // Test ID: IIDSAT
 
-import formatCurrency from "../../ultilities/helpers";
-import formatDate from "../../ultilities/helpers";
-import calcMinutesLeft from "../../ultilities/helpers";
+import { formatCurrency } from "../../ultilities/helpers";
+import { formatDate } from "../../ultilities/helpers";
+import { calcMinutesLeft } from "../../ultilities/helpers";
 
 // import {
 //   calcMinutesLeft,
