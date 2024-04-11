@@ -7,6 +7,7 @@ import { calcMinutesLeft } from "../../ultilities/helpers";
 import { useFetcher, useLoaderData } from "react-router-dom";
 import OrderItem from '../order/OrderItem'
 import { useEffect } from "react";
+import UpdateOrder from "./UpdateOrder";
 
 // import {
 //   calcMinutesLeft,
@@ -102,6 +103,7 @@ function Order() {
         {priority && <p>Price priority: {formatCurrency(priorityPrice)}</p>}
         <p className="font-bold">To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}</p>
       </div>
+      {!priority && <UpdateOrder order={order} />}
     </div>
   );
 }
