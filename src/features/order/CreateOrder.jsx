@@ -26,7 +26,10 @@ function CreateOrder() {
 
   const formErrors = useActionData();
 
-  const userName = useSelector(store => store.user.userName);
+  const {userName, status: addressStatus, position, address, error: errorAddress
+  } = useSelector(store => store.user.userName);
+  
+  const isLoadingAddress = address === 'loading';
 
   const [withPriority, setWithPriority] = useState(false);
   const cart = useSelector(getCart)
@@ -47,10 +50,7 @@ function CreateOrder() {
     <div className="px-4 py-6">
       <h2 className="mb-8 font-semibold text-xl ">Ready to order? Let go!</h2>
 
-      <button onClick={async () => {
-        dispatch(fetchAddress())
-
-      }}>Get position</button>
+      
 
       <Form method="POST">
         <div className="mb-5 flex gap-2 flex-col sm:flex-row sm:items-center">
@@ -71,8 +71,26 @@ function CreateOrder() {
           <label className="basis-40">Address</label>
           <div className="grow">
             <input type="text" name="address"
-            className="input w-full"  required />
+              className="input w-full" required
+              defaultValue={ address}
+            />
+             {addressStatus === 'error' && <p className=" text-xs p-2 mt-2 text-red-700 bg-red-100 rounded-md">{errorAddress}</p>}
           </div>
+
+          {!position.latitude && !position.longitude && (
+            <span className="absolute right-[3px] top-[3px] z-50 md:right-[5px] md:top-[5px]">
+              <Button
+                disabled={isLoadingAddress}
+                type="small"
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(fetchAddress());
+                }}
+              >
+                Get position
+              </Button>
+            </span>
+          )}
         </div>
 
         <div className="mb-12 flex gap-5 items-center">
@@ -90,7 +108,7 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <Button type='primary' disabled={isSubmitting} >
+          <Button type='primary' disabled={isSubmitting || isLoadingAddress} >
             {isSubmitting ? "placing order...." : `Order now from ${formatCurrency(totalPrice)}`}
           </Button>
         </div>
