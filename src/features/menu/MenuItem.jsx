@@ -62,4 +62,4 @@ function MenuItem({ pizza }) {
   );
 }
 
-export default MenuItem;
+export default MenuItem
