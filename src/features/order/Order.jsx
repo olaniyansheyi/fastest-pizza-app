@@ -80,7 +80,7 @@ function Order() {
         <h2 className="text-xl font-semibold mb-4 sm:mb-0">order #{id} status</h2>
 
         <div className="space-x-2 ">
-          {true && (<span className="bg-red-500 rounded-full py-1 px-3 text-sm uppercase font-semibold text-red-50">Priority</span>)}
+          {priority && (<span className="bg-red-500 rounded-full py-1 px-3 text-sm uppercase font-semibold text-red-50">Priority</span>)}
           <span className="bg-green-500 rounded-full py-1 px-3 text-sm uppercase font-semibold text-green-50">{status} order</span>
         </div>
       </div>
